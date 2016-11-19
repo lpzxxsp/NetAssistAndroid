@@ -24,7 +24,8 @@
         android:text="TCP通信"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_bjip"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="20sp"

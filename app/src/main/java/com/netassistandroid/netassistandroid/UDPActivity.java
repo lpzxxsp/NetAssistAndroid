@@ -45,21 +45,22 @@ public class UDPActivity extends AppCompatActivity {
         btn_udp_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNumeric(ed_udp_bdzjdk.getText().toString())){
-                    try {
-                        UDPsend(ed_udp_bdzjdz.getText().toString(),toNumber(ed_udp_bdzjdk.getText().toString()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (isNumeric(ed_udp_bdzjdk.getText().toString())) {
+                        try {
+                            UDPsend(ed_udp_bdzjdz.getText().toString(), toNumber(ed_udp_bdzjdk.getText().toString()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("输入的UDP端口不是数字");
+                        //这里可以添加一个Toast提示
+                        Toast.makeText(UDPActivity.this, "输入的UDP端口不不正确", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    System.out.println("输入的UDP端口不是数字");
-                    //这里可以添加一个Toast提示
-                    Toast.makeText(UDPActivity.this, "输入的UDP端口不是数字", Toast.LENGTH_SHORT).show();
-                }
 
             }
         });
 
+        btn_udp_start = (Button) findViewById(R.id.btn_udp_start);
         btn_udp_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +79,7 @@ public class UDPActivity extends AppCompatActivity {
             }
         });
 
+        btn_udp_close = (Button) findViewById(R.id.btn_udp_close);
         btn_udp_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +87,7 @@ public class UDPActivity extends AppCompatActivity {
                 btn_udp_start.setEnabled(true);//设置点击后恢复开启按钮为可点
                 UDPReceiveThread.flag = false;//改变标志位，推出循环接收的线程
 
-                /**UDP接收线程阻塞的问题还没有解决*//*********************************************************************************************/
+                /**UDP接收线程阻塞的问题还没有解决*//***********************/
 
             }
         });
@@ -103,8 +105,9 @@ public class UDPActivity extends AppCompatActivity {
         System.out.println("UDPsend()方法启动。");
 
         DatagramSocket ds  = new DatagramSocket();
+        //DatagramSocket ds = null;
         byte[] buf = ed_udp_neirong.getText().toString().getBytes(); //获取输入框中的内容
-        DatagramPacket dp = new DatagramPacket(buf,buf.length, InetAddress.getByName(ip /*"127.0.0.1"*/),port /*10000*/);//10000为定义的端口
+        DatagramPacket dp = new DatagramPacket(buf,buf.length, InetAddress.getByName(ip),port);//10000为定义的端口
         System.out.println("数据包开始发送。。。");
         ds.send(dp);
         ds.close();
@@ -151,6 +154,41 @@ public class UDPActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * 去除字符串前后空格的方法
+     *
+     * @param IP
+     * @return
+     */
+    public static String deleteSpace(String IP) {// 去掉IP字符串前后所有的空格
+        while (IP.startsWith(" ")) {
+            IP = IP.substring(1, IP.length()).trim();
+        }
+        while (IP.endsWith(" ")) {
+            IP = IP.substring(0, IP.length() - 1).trim();
+        }
+        return IP;
+    }
+
+    /**
+     * 判断是否是IP地址的方法
+     *
+     * @param IP
+     * @return
+     */
+    public static boolean isIp(String IP) {
+        boolean b = false;
+        IP = deleteSpace(IP);
+        if (IP.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")) {
+            String s[] = IP.split("\\.");
+            if (Integer.parseInt(s[0]) < 256)
+                if (Integer.parseInt(s[1]) < 256)
+                    if (Integer.parseInt(s[2]) < 256)
+                        if (Integer.parseInt(s[3]) < 256)
+                            b = true;
+        }
+        return b;
+    }
 
 
 
