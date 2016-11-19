@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_udp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.netassistandroid.netassistandroid.UDPActivity">
+
+
+
+
+    <EditText
+        android:id="@+id/ed_udp_bdzjdz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="本地主机地址"/>
+
+    <EditText
+        android:id="@+id/ed_udp_bdzjdk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="本地端口地址"/>
+
+    <EditText
+        android:id="@+id/ed_udp_neirong_receive"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="这里是接受到的内容"/>
+
+    <EditText
+        android:id="@+id/ed_udp_neirong"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="这里填写的是要发送的内容"/>
+
+    <Button
+        android:id="@+id/btn_udp_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开启UDP服务"/>
+
+    <Button
+        android:id="@+id/btn_udp_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关闭UDP服务"/>
+
+    <Button
+        android:id="@+id/btn_udp_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击发送"/>
+
+</LinearLayout>
